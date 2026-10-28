@@ -1,0 +1,98 @@
+{
+  "prompt_version": "shade_analysis_v1",
+  "notes": "Small evaluation set for manual or scripted review. Expected classifications describe what a good analysis should emphasize — not exact LLM wording.",
+  "cases": [
+    {
+      "id": "depth_ok_too_orange",
+      "input": {
+        "brand": "Demo Cosmetics",
+        "product": "Everyday Soft Matte Foundation",
+        "shade_name": "Light 2 Warm",
+        "depth_feedback": "correct",
+        "undertone_issues": ["too_orange"],
+        "description": "Jawline depth looks right but my face looks pumpkin-orange in photos.",
+        "wear_change": "no"
+      },
+      "expected": {
+        "reported_depth_match": "matches",
+        "should_mention_color_issue": "orange",
+        "should_suggest_cooler_or_less_warm": true,
+        "must_not_claim_verified_match": true,
+        "must_list_uncertainties": true
+      }
+    },
+    {
+      "id": "depth_ok_too_pink",
+      "input": {
+        "brand": "Demo Cosmetics",
+        "product": "Everyday Soft Matte Foundation",
+        "shade_name": "Light 2 Cool",
+        "depth_feedback": "correct",
+        "undertone_issues": ["too_pink"],
+        "description": "It matches my neck depth but looks rosy and doll-like on my cheeks.",
+        "wear_change": "no"
+      },
+      "expected": {
+        "reported_depth_match": "matches",
+        "should_mention_color_issue": "pink",
+        "should_suggest_warmer_or_neutral": true,
+        "must_not_claim_verified_match": true,
+        "must_list_uncertainties": true
+      }
+    },
+    {
+      "id": "too_dark_undertone_ok",
+      "input": {
+        "brand": "Demo Cosmetics",
+        "product": "Sheer Glow Tint",
+        "shade_name": "Medium Olive 1",
+        "depth_feedback": "too_dark",
+        "undertone_issues": ["none"],
+        "description": "The color direction feels fine but it makes my face look muddy and deeper than my neck.",
+        "wear_change": "no"
+      },
+      "expected": {
+        "reported_depth_match": "too_dark",
+        "should_prioritize_lighter_depth": true,
+        "must_not_invent_cross_brand_equivalence": true,
+        "must_list_uncertainties": true
+      }
+    },
+    {
+      "id": "oxidizes_after_wear",
+      "input": {
+        "brand": "Demo Cosmetics",
+        "product": "Everyday Soft Matte Foundation",
+        "shade_name": "Light 2 Neutral",
+        "depth_feedback": "correct",
+        "undertone_issues": ["too_orange"],
+        "description": "Looks okay when I put it on, then darkens and goes orange after a few hours.",
+        "wear_change": "yes"
+      },
+      "expected": {
+        "reported_wear_change": "yes",
+        "should_discuss_oxidation_or_wear_change": true,
+        "must_not_claim_photo_analysis": true,
+        "must_list_uncertainties": true
+      }
+    },
+    {
+      "id": "unclear_contradictory",
+      "input": {
+        "brand": "Unknown Brand",
+        "product": "Mystery Foundation",
+        "shade_name": "Shade 5",
+        "depth_feedback": "unsure",
+        "undertone_issues": ["too_orange", "too_pink", "unsure"],
+        "description": "Sometimes too light, sometimes too dark. Friends say it looks gray but also orange? Lighting is weird in my bathroom.",
+        "wear_change": "unsure"
+      },
+      "expected": {
+        "reported_depth_match": "unclear",
+        "should_flag_contradiction_or_uncertainty": true,
+        "must_not_force_confident_diagnosis": true,
+        "must_list_uncertainties": true
+      }
+    }
+  ]
+}

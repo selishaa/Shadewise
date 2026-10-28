@@ -1,0 +1,1 @@
+"""ShadeWise backend application package."""
