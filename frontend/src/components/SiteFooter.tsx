@@ -1,12 +1,30 @@
+import Link from "next/link";
+import { ShadeWiseLogo } from "./ShadeWiseLogo";
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-espresso/10 bg-mist/80">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-8 text-sm leading-relaxed text-espresso-soft sm:flex-row sm:items-start sm:justify-between sm:gap-8 sm:px-8">
-        <p className="font-display text-xl text-espresso">ShadeWise</p>
-        <p className="max-w-md">
-          We help you understand why a foundation isn&apos;t working — and what to explore next.
-          This is thoughtful guidance, not a guaranteed shade match.
-        </p>
+    <footer className="border-t border-espresso/10 bg-cream">
+      <div className="page-shell flex flex-col gap-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+        <div>
+          <ShadeWiseLogo />
+          <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-espresso-soft">
+            Guidance for shade mismatches — not a guaranteed match.
+          </p>
+        </div>
+        <nav
+          aria-label="Footer"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-espresso-soft"
+        >
+          <Link href="/" className="transition hover:text-espresso">
+            Home
+          </Link>
+          <Link href="/#how-it-works" className="transition hover:text-espresso">
+            How it works
+          </Link>
+          <Link href="/find-your-shade" className="transition hover:text-espresso">
+            Find My Shade
+          </Link>
+        </nav>
       </div>
     </footer>
   );

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Too orange? Too pink? Tell us what you've tried — ShadeWise helps you get closer to your perfect foundation match.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
 };
 

@@ -5,6 +5,9 @@
 :root {
   --background: #fbf7f1;
   --foreground: #2c1810;
+  --section-x: 1.25rem;
+  --section-y: 3.25rem;
+  --section-y-lg: 4rem;
 }
 
 html {
@@ -20,6 +23,42 @@ body {
 ::selection {
   background: rgba(201, 160, 154, 0.35);
   color: #2c1810;
+}
+
+@layer components {
+  /* Shared homepage section shell — keeps rhythm consistent */
+  .page-shell {
+    @apply mx-auto max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-pad {
+    @apply py-12 sm:py-16;
+  }
+
+  .section-eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.28em] text-burgundy;
+  }
+
+  .section-title {
+    @apply text-balance font-display text-3xl leading-tight text-espresso sm:text-4xl;
+  }
+
+  .section-body {
+    @apply text-[15px] leading-relaxed text-espresso-soft sm:text-base;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-espresso px-7 py-3.5 text-sm font-medium text-cream transition hover:bg-espresso-soft active:scale-[0.98];
+  }
+
+  .btn-on-dark {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-cream/30 bg-cream px-8 py-3.5 text-sm font-medium text-espresso transition hover:bg-ivory active:scale-[0.98];
+  }
+
+  /* Warm grade only — never force a crop */
+  .editorial-photo {
+    filter: saturate(0.94) contrast(1.03) brightness(0.99);
+  }
 }
 
 @layer utilities {
@@ -46,5 +85,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up {
     animation: none;
+  }
+
+  .editorial-photo {
+    filter: none;
   }
 }

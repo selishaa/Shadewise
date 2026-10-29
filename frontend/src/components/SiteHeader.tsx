@@ -1,15 +1,11 @@
 import Link from "next/link";
+import { ShadeWiseLogo } from "./ShadeWiseLogo";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-espresso/10 bg-cream/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8 sm:py-4">
-        <Link
-          href="/"
-          className="font-display text-2xl tracking-tight text-espresso transition hover:text-rose-deep"
-        >
-          ShadeWise
-        </Link>
+      <div className="page-shell flex items-center justify-between gap-4 py-3 sm:py-3.5">
+        <ShadeWiseLogo />
         <nav
           aria-label="Primary"
           className="flex items-center gap-3 text-sm text-espresso-soft sm:gap-6"

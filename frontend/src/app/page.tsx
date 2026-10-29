@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { ClosingBanner } from "@/components/ClosingBanner";
 import { HeroPortraitCollage } from "@/components/HeroPortraitCollage";
+import { ShadePreview } from "@/components/ShadePreview";
+import { ShadeStruggle } from "@/components/ShadeStruggle";
 
 const steps = [
   {
@@ -16,13 +19,6 @@ const steps = [
     detail:
       "Understand possible reasons for the mismatch and what to explore next.",
   },
-];
-
-const frustrations = [
-  "Looks right in depth, but the undertone feels off",
-  "Different brands, totally different shade names",
-  "Online swatches that don't match real life",
-  "A foundation that changes after a few hours",
 ];
 
 export default function HomePage() {
@@ -68,56 +64,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-cream/55">
-        <div className="mx-auto max-w-5xl px-5 py-14 sm:px-8 sm:py-20">
-          <h2 className="max-w-2xl text-balance font-display text-3xl text-espresso sm:text-4xl">
-            Because finding your shade shouldn&apos;t be this hard.
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-espresso-soft sm:text-lg">
-            Store lighting can trick you. Phone photos can too. And a shade that looked perfect at
-            noon might look different by dinner. ShadeWise helps you sort out what&apos;s going
-            wrong — so your next try feels more intentional.
-          </p>
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6">
-            {frustrations.map((item) => (
-              <li
-                key={item}
-                className="border-l-2 border-burgundy/70 pl-4 text-[15px] leading-snug text-espresso sm:text-base"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <ShadeStruggle />
 
-      <section id="how-it-works" className="scroll-mt-24 border-t border-espresso/10">
-        <div className="mx-auto max-w-5xl px-5 py-14 sm:px-8 sm:py-20">
-          <h2 className="font-display text-3xl text-espresso sm:text-4xl">How it works</h2>
-          <p className="mt-3 max-w-xl text-espresso-soft">
+      <ShadePreview />
+
+      <section id="how-it-works" className="scroll-mt-24 border-b border-espresso/10">
+        <div className="page-shell section-pad">
+          <h2 className="section-title">How it works</h2>
+          <p className="section-body mt-3 max-w-xl">
             Three simple steps. Honest guidance. No pressure.
           </p>
-          <ol className="mt-10 grid gap-8 sm:gap-10 md:grid-cols-3">
+          <ol className="mt-8 grid gap-6 md:grid-cols-3 md:gap-8">
             {steps.map((step, index) => (
-              <li key={step.title} className="space-y-3">
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-burgundy">
+              <li key={step.title} className="space-y-2 border-t border-espresso/10 pt-4">
+                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-burgundy">
                   Step {index + 1}
                 </p>
-                <h3 className="font-display text-2xl text-espresso">{step.title}</h3>
-                <p className="text-[15px] leading-relaxed text-espresso-soft">{step.detail}</p>
+                <h3 className="font-display text-xl text-espresso sm:text-2xl">{step.title}</h3>
+                <p className="text-sm leading-relaxed text-espresso-soft">{step.detail}</p>
               </li>
             ))}
           </ol>
-          <div className="mt-12">
-            <Link
-              href="/find-your-shade"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-espresso px-7 py-3.5 text-sm font-medium text-cream transition hover:bg-espresso-soft active:scale-[0.98]"
-            >
+          <div className="mt-8">
+            <Link href="/find-your-shade" className="btn-primary">
               Find My Shade
             </Link>
           </div>
         </div>
       </section>
+
+      <ClosingBanner />
     </>
   );
 }
