@@ -4,6 +4,8 @@ from typing import List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.models.catalog import CatalogProduct
+
 
 # --- Limits for safety and cost control ---
 MAX_TEXT_LEN = 500
@@ -113,19 +115,6 @@ class GuidanceItem(BaseModel):
     title: str
     detail: str
     source: Literal["general_guidance", "illustrative_catalog"]
-
-
-class CatalogProduct(BaseModel):
-    """Tiny local demo catalog entry — explicitly illustrative unless verified."""
-
-    id: str
-    brand: str
-    product: str
-    shade_name: str
-    depth_family: Literal["fair", "light", "medium", "tan", "deep"]
-    undertone_family: Literal["cool", "warm", "neutral", "olive"]
-    notes: str
-    data_status: Literal["illustrative"] = "illustrative"
 
 
 class AnalyzeShadeResponse(BaseModel):

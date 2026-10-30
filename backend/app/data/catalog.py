@@ -1,58 +1,20 @@
 """
-Tiny local demonstration catalog.
+Catalog helpers used by shade analysis.
 
-All entries are explicitly ILLUSTRATIVE. They exist so the UI can show how
-catalog-backed hints would look — they are NOT verified product matches
-and must never be presented as real shade recommendations.
+- get_general_guidance: deterministic tips from form answers (unchanged behavior).
+- get_catalog: illustrative UI hints only (never recommendation-eligible rows).
 """
 
 from typing import List
 
-from app.models.schemas import CatalogProduct, GuidanceItem
-
-
-_ILLUSTRATIVE_CATALOG: List[CatalogProduct] = [
-    CatalogProduct(
-        id="demo-1",
-        brand="Demo Cosmetics",
-        product="Everyday Soft Matte Foundation",
-        shade_name="Light 2 Neutral",
-        depth_family="light",
-        undertone_family="neutral",
-        notes="Illustrative only — shows a neutral light depth family label.",
-    ),
-    CatalogProduct(
-        id="demo-2",
-        brand="Demo Cosmetics",
-        product="Everyday Soft Matte Foundation",
-        shade_name="Light 2 Cool",
-        depth_family="light",
-        undertone_family="cool",
-        notes="Illustrative only — cooler sibling of Light 2 Neutral.",
-    ),
-    CatalogProduct(
-        id="demo-3",
-        brand="Demo Cosmetics",
-        product="Everyday Soft Matte Foundation",
-        shade_name="Light 2 Warm",
-        depth_family="light",
-        undertone_family="warm",
-        notes="Illustrative only — warmer sibling; useful for 'too pink' discussions.",
-    ),
-    CatalogProduct(
-        id="demo-4",
-        brand="Demo Cosmetics",
-        product="Sheer Glow Tint",
-        shade_name="Medium Olive 1",
-        depth_family="medium",
-        undertone_family="olive",
-        notes="Illustrative only — olive family for greying/orange mismatch talks.",
-    ),
-]
+from app.data.catalog_repository import get_illustrative_catalog_products
+from app.models.catalog import CatalogProduct
+from app.models.schemas import GuidanceItem
 
 
 def get_catalog() -> List[CatalogProduct]:
-    return list(_ILLUSTRATIVE_CATALOG)
+    """Illustrative demo rows for analyze-shade results panel."""
+    return get_illustrative_catalog_products()
 
 
 def get_general_guidance(depth_feedback: str, undertone_issues: List[str]) -> List[GuidanceItem]:
@@ -131,8 +93,10 @@ def get_general_guidance(depth_feedback: str, undertone_issues: List[str]) -> Li
         GuidanceItem(
             title="No verified product matches yet",
             detail=(
-                "ShadeWise Phase 1 does not claim cross-brand shade equivalences. "
-                "Use AI analysis for interpretation and this guidance for what to test next."
+                "ShadeWise does not claim cross-brand shade equivalences until a "
+                "verified catalog row is matched by the recommendation algorithm "
+                "(Milestone C). Use AI analysis for interpretation and this guidance "
+                "for what to test next."
             ),
             source="general_guidance",
         )
