@@ -7,3 +7,9 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 .DS_Store
+
+# Historical import artifacts (regenerate offline; do not treat as live catalog)
+app/data/staging/*.json
+app/data/staging/reviews/
+app/data/external/pudding/allShades.csv
+app/data/external/pudding/*.csv

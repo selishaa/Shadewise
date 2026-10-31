@@ -145,3 +145,53 @@ def load_collection_template() -> dict:
         raise CatalogDataError(f"Template file not found: {path}")
     return json.loads(path.read_text(encoding="utf-8"))
 
+
+def catalog_path() -> Path:
+    return _CATALOG_PATH
+
+
+def find_duplicate(
+    candidate: FoundationShade,
+    existing: Optional[List[FoundationShade]] = None,
+) -> Optional[FoundationShade]:
+    """Return an existing row that collides on id or duplicate_key, else None."""
+    rows = existing if existing is not None else list(load_catalog())
+    for row in rows:
+        if row.id == candidate.id or row.duplicate_key() == candidate.duplicate_key():
+            return row
+    return None
+
+
+def append_shade_to_catalog(
+    shade: FoundationShade,
+    *,
+    path: Optional[Path] = None,
+) -> FoundationShade:
+    """
+    Append one validated shade to the catalog JSON file and refresh the cache.
+
+    Raises CatalogDataError on duplicate id/identity or validation failure.
+    """
+    target = Path(path) if path is not None else _CATALOG_PATH
+    raw_rows = _load_raw_shades(target)
+    existing = _validate_and_dedupe(raw_rows)
+
+    collision = find_duplicate(shade, existing)
+    if collision is not None:
+        raise CatalogDataError(
+            "Duplicate catalog entry blocked: "
+            f"new id={shade.id!r} conflicts with existing id={collision.id!r} "
+            f"(brand={collision.brand!r}, product={collision.product!r}, "
+            f"shade_name={collision.shade_name!r})."
+        )
+
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(payload.get("shades"), list):
+        raise CatalogDataError("Catalog JSON must contain a 'shades' array.")
+
+    row = shade.model_dump(mode="json", exclude={"recommendation_eligible"})
+    payload["shades"].append(row)
+    target.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    load_catalog.cache_clear()
+    return shade
+

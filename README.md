@@ -61,6 +61,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
+**Primary demo (no OpenAI key required):**  
+[http://localhost:3000/find-your-shade](http://localhost:3000/find-your-shade) — search your foundation, describe the mismatch, get guidance + verified candidates when available.
+
+Secondary shade archive: [http://localhost:3000/explore](http://localhost:3000/explore)  
+Import staging first for archive search (`docs/EXPLORER_DEMO.md`).
+
 ### 3. Tests
 
 ```bash
@@ -72,6 +78,8 @@ pytest -q
 ```bash
 cd frontend
 npm run lint
+npm run typecheck
+npm test
 npm run build
 ```
 

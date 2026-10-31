@@ -19,7 +19,11 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-4o-mini"
     openai_timeout_seconds: float = 30.0
     openai_max_tokens: int = 1200
-    cors_origins: str = "http://localhost:3000"
+    # Abuse / spend soft controls for /api/analyze-shade (in-memory; per process).
+    openai_rate_limit_per_ip_hour: int = 10
+    openai_daily_request_cap: int = 200
+    # Include 127.0.0.1 — browsers treat it as a different origin than localhost.
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
 
     @property
     def cors_origin_list(self) -> List[str]:

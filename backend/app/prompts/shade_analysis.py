@@ -41,12 +41,15 @@ def build_user_prompt(request: AnalyzeShadeRequest) -> str:
     issues: List[str] = list(request.undertone_issues) or ["none reported"]
     description = request.description or "(no free-text description provided)"
 
+    shade_code = request.shade_code or "(none provided)"
+
     return f"""Analyze this foundation shade mismatch report.
 
 Foundation details (user-entered, not verified):
 - Brand: {request.brand}
 - Product: {request.product}
-- Shade name/code: {request.shade_name}
+- Shade name: {request.shade_name}
+- Shade code: {shade_code}
 
 Form answers:
 - Depth feedback: {request.depth_feedback}

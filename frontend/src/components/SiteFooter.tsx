@@ -24,6 +24,9 @@ export function SiteFooter() {
           <Link href="/find-your-shade" className="transition hover:text-espresso">
             Find My Shade
           </Link>
+          <Link href="/explore" className="transition hover:text-espresso">
+            Shade archive
+          </Link>
         </nav>
       </div>
     </footer>

@@ -34,6 +34,7 @@ class AnalyzeShadeRequest(BaseModel):
     brand: str = Field(..., min_length=1, max_length=MAX_BRAND_LEN)
     product: str = Field(..., min_length=1, max_length=MAX_PRODUCT_LEN)
     shade_name: str = Field(..., min_length=1, max_length=MAX_SHADE_LEN)
+    shade_code: Optional[str] = Field(default=None, max_length=MAX_SHADE_LEN)
     depth_feedback: DepthFeedback
     undertone_issues: List[UndertoneIssue] = Field(default_factory=list, max_length=6)
     description: str = Field(default="", max_length=MAX_TEXT_LEN)
@@ -43,6 +44,14 @@ class AnalyzeShadeRequest(BaseModel):
     @classmethod
     def strip_whitespace(cls, value: str) -> str:
         return value.strip()
+
+    @field_validator("shade_code")
+    @classmethod
+    def strip_optional_code(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        cleaned = value.strip()
+        return cleaned or None
 
     @field_validator("undertone_issues")
     @classmethod

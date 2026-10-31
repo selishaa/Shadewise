@@ -341,6 +341,45 @@ def test_collection_template_loads_and_worksheet_validates():
         assert "REPLACE" in shade.shade_name or shade.shade_name.startswith("REPLACE")
 
 
+def test_cross_brand_worksheet_c1a_is_unreviewed_and_balanced():
+    """Milestone C.1a — collection stubs only; nothing verified or live yet."""
+    template = load_collection_template()
+    assert template.get("milestone") == "C.1a"
+    refs = template["reference_product_pages"]
+    assert "nars_light_reflecting_foundation" in refs
+    assert "maybelline_fit_me_matte_poreless" in refs
+    assert "fenty_pro_filtr_soft_matte" in refs
+    assert "fentybeauty.com" in refs["fenty_pro_filtr_soft_matte"]
+
+    plan = template["collection_plan"]
+    assert plan["new_worksheet_slots"]["total_new_slots"] == 19
+    assert plan["already_in_live_catalog"]["nars_light_reflecting"] == 5
+
+    worksheet = template["cross_brand_shades_worksheet"]
+    assert len(worksheet) == 19
+
+    by_brand = {}
+    for stub in worksheet:
+        shade = FoundationShade.model_validate(stub)
+        assert shade.metadata_verification_status == "unreviewed"
+        assert shade.verification_status == "estimated"
+        assert shade.matching_accuracy_status == "not_evaluated"
+        assert shade.recommendation_eligible is False
+        assert shade.independent_depth is None
+        assert shade.independent_undertone is None
+        assert "REPLACE" in shade.shade_name
+        by_brand[shade.brand] = by_brand.get(shade.brand, 0) + 1
+
+    assert by_brand["NARS"] == 3
+    assert by_brand["Maybelline"] == 8
+    assert by_brand["Fenty Beauty"] == 8
+
+    # Live catalog must still contain the five existing NARS rows only (no worksheet paste yet).
+    live = [r for r in reload_catalog() if r.brand == "NARS"]
+    assert len(live) == 5
+    assert all(r.shade_name != "REPLACE_WITH_EXACT_SHADE_NAME_FROM_PAGE" for r in live)
+
+
 def test_unreviewed_real_brand_stub_not_eligible():
     shade = FoundationShade.model_validate(
         {

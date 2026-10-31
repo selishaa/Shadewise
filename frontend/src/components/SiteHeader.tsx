@@ -8,7 +8,7 @@ export function SiteHeader() {
         <ShadeWiseLogo />
         <nav
           aria-label="Primary"
-          className="flex items-center gap-3 text-sm text-espresso-soft sm:gap-6"
+          className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-sm text-espresso-soft sm:gap-x-5"
         >
           <Link
             href="/#how-it-works"

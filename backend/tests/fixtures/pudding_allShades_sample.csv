@@ -1,0 +1,11 @@
+brand,product,url,description,imgSrc,imgAlt,name,specific,colorspace,hex,hue,sat,lightness
+Maybelline,Fit Me Matte + Poreless Liquid Foundation,https://www.ulta.com/example-fitme,Porcelain 110,https://images.example/swatch1.png,Porcelain 110,Porcelain,110,RGB,#FEEDDB,30.0,0.25,0.90
+Maybelline,Fit Me Matte + Poreless Liquid Foundation,https://www.ulta.com/example-fitme,Warm Nude 128,https://images.example/swatch2.png,Warm Nude 128,Warm Nude,128,RGB,#EBC099,28.0,0.30,0.75
+FENTY BEAUTY by Rihanna,Pro Filt'r Soft Matte Longwear Foundation,https://www.sephora.com/example-fenty,100 for very fair skin with neutral undertones,https://images.example/f100.png,100 for very fair skin with neutral undertones,NA,100,RGB,#FFDEC3,32.0,0.40,0.88
+FENTY BEAUTY by Rihanna,Pro Filt'r Soft Matte Longwear Foundation,https://www.sephora.com/example-fenty,145 for light skin with warm undertones  selected,https://images.example/f145.png,145 for light skin with warm undertones,NA,145,RGB,FFC8A3,28.5,0.35,0.80
+NARS,Sheer Glow Foundation,https://www.ulta.com/example-nars,Punjab (medium skin w/ yellow undertones),https://images.example/punjab.png,Punjab (medium skin w/ yellow undertones),Punjab,NA,RGB,#C48A5A,25.0,0.45,0.55
+NARS,Sheer Glow Foundation,https://www.ulta.com/example-nars,Punjab (medium skin w/ yellow undertones),https://images.example/punjab.png,Punjab (medium skin w/ yellow undertones),Punjab,NA,RGB,#C48A5A,25.0,0.45,0.55
+BadBrandMissingProduct,,https://example.com/x,orphan shade,https://images.example/x.png,orphan,Orphan,1,RGB,#FFFFFF,0,0,1
+Mystery Brand,Mystery Foundation,https://example.com/mystery,,,,NA,NA,RGB,#ABCDEF,10,0.2,0.5
+Color Broken Co,Broken Hex Foundation,https://example.com/broken,Shade Z with broken hex,https://images.example/z.png,Shade Z,Shade Z,Z1,RGB,not-a-hex,bad,0.2,0.5
+Maybelline,Fit Me Matte + Poreless Liquid Foundation,https://www.ulta.com/example-fitme,Classic Ivory 120,https://images.example/swatch3.png,Classic Ivory 120,Classic Ivory,120,RGB,#EDCAB4,26.0,0.28,0.78

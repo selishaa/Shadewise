@@ -1,4 +1,4 @@
-# ShadeWise catalog data collection (Milestone B.1)
+# ShadeWise catalog data collection
 
 ## What we are collecting
 
@@ -25,7 +25,7 @@ Also set `verification_status`:
 - `estimated` — draft / incomplete  
 - `illustrative` — fictional demo only  
 
-**Recommendation eligibility** (for a future matcher) requires:
+**Recommendation eligibility** (matcher candidates) requires:
 
 1. `verification_status` is `brand_verified` or `independently_measured`  
 2. `metadata_verification_status` is `source_checked`  
@@ -34,32 +34,46 @@ Also set `verification_status`:
 Having `matching_accuracy_status: not_evaluated` is OK for being a *candidate*; it does **not** claim the match works.  
 `wear_validated` is reserved for later evidence.
 
+**Metadata verification ≠ matching accuracy.**
+
 ## Official reference pages (open in a browser — do not scrape)
 
 - NARS Light Reflecting Foundation:  
   https://www.narscosmetics.com/USA/light-reflecting%E2%84%A2-advanced-skincare-foundation/999NAC0000141.html  
 - Maybelline Fit Me Matte + Poreless:  
   https://www.maybelline.com/face-makeup/foundation-makeup/fit-me-matte-poreless-foundation  
+- Fenty Beauty Pro Filt'r Soft Matte Longwear Foundation:  
+  https://fentybeauty.com/products/pro-filtr-soft-matte-longwear-foundation  
 
-## How to add your first five real shades (manual)
+## Milestone C.1a — cross-brand worksheet
 
-1. Open `app/data/catalog_entry_template.json`.  
-2. Use the five stubs in `first_five_real_shades_worksheet` (2 NARS + 3 Maybelline slots).  
-3. On each product page, pick a real shade and copy **exactly**:
-   - shade name  
-   - shade code (if shown)  
-   - brand description (if shown)  
-4. Set depth/undertone **only** if the brand labels them (e.g. “warm”, “cool”). Otherwise leave `null`.  
-5. Leave all `independent_*` fields `null` until you do a real wear test.  
-6. When the row matches the page: set  
-   - `metadata_verification_status`: `source_checked`  
-   - `date_verified`: today’s date (`YYYY-MM-DD`)  
-   - `verification_status`: `brand_verified`  
-   - `matching_accuracy_status`: keep `not_evaluated`  
-7. Change each stub `id` to a unique slug (e.g. `nars-lrf-punjab`).  
-8. Copy finished objects into `foundation_catalog.json` → `shades` array.  
-9. From `backend/`: run `pytest -q` then restart the API.  
-10. Inspect: `GET /api/catalog?brand=NARS` and `?recommendation_eligible_only=true`.
+Use the beginner guide and blank table here:
+
+- **`docs/CROSS_BRAND_DATA_WORKSHEET.md`**
+- JSON stubs: `app/data/catalog_entry_template.json` → `cross_brand_shades_worksheet`
+
+Plan: keep 5 existing NARS rows; collect **3 more NARS** + **8 Maybelline** + **8 Fenty** (~24 real shades).
+
+Ambiguous bands (`light-medium`, `medium-deep`, `light to medium`) → leave `brand_reported_depth` **null**.
+
+## Milestone C.1b — historical staging import (The Pudding)
+
+Offline importer for The Pudding `foundation-names` / `allShades.csv` writes **staging JSON only**.  
+It never merges into `foundation_catalog.json` and never marks rows recommendation-eligible.
+
+See **`docs/PUDDING_IMPORT.md`**.
+
+## Milestone C.2 — discovery search API
+
+Read-only search over staging: **`docs/FOUNDATION_DISCOVERY.md`**  
+(`GET /api/discover/shades` — separate from verified `/api/catalog`).
+
+## How to add shades to the live catalog (manual promotion)
+
+1. Finish and review the C.1a worksheet.  
+2. Copy finished objects into `foundation_catalog.json` → `shades` array (strip worksheet-only fields like `brand_depth_band`).  
+3. From `backend/`: run `pytest -q` then restart the API.  
+4. Inspect: `GET /api/catalog?brand=NARS` (and Maybelline / Fenty) and `?recommendation_eligible_only=true`.
 
 ## What still needs a human (we will not invent this)
 
@@ -75,3 +89,4 @@ Having `matching_accuracy_status: not_evaluated` is OK for being a *candidate*; 
 - No guessing Lab/RGB values.  
 - No marking `source_checked` or `brand_verified` without opening the source.  
 - Demo “ShadeWise Demo” rows stay for tests; real brands are separate rows.  
+- Preserve the five existing NARS records when expanding.  

@@ -12,8 +12,8 @@ export function FindShadeIntro() {
               Let&apos;s find out why your shade isn&apos;t working.
             </h1>
             <p className="mt-4 text-[15px] leading-relaxed text-espresso-soft sm:text-base">
-              A few quick questions about what you&apos;ve tried — then clear, honest ideas for
-              what to look for next.
+              Search the foundation you wear, tell us what feels off, and get a clear, honest read
+              on what to try next — including shade ideas when we can suggest them carefully.
             </p>
             <p className="mt-6 border-l border-burgundy/50 pl-4 font-display text-xl leading-snug text-espresso-soft">
               A quiet consultation — not a checkout counter.
